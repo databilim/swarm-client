@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SWARM</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;subset=latin-ext" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/style.css">
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/js/anime.js"></script>
+		
+</head>
+<body>
+	
+
+		<video  id="myVideo" autoplay="autoplay">
+				<source src="https://www.erbulut.com/video" type="video/mp4">
+				Your browser does not support HTML5 video.
+			  </video>
+			  
+			  <div class="content">
+				<h1>KÜDÜS KAHVESİ</h1>
+				<p>MERHABALAR KÜDÜS KAHVESİ VİDOE PLAYER HOŞGELDİNİZ</p>
+				<button id="myBtn" onclick="myFunction()">BAŞLAT</button>
+			  </div>
+			  
+
+
+		<svg class="dataSvg" 
+		height="100%" width="100%" viewBox="0 0 100 100"  preserveAspectRatio="none">
+		  <polygon class="animeSheet" points="196,100 0,100 0,0 33.3,0 196,0 "/>
+		 </svg>
+
+
+<div id="swarm">	
+	<div id="heade"></div>
+	<div id="content">
+		<div class="contentHead"><img  src="/img/logo.png"></div>
+		<div class="contentProfilImg"><img  class="userFoto" src="/img/profil.png"></div>
+		<div class="contentMesaj"> <h1>HOŞ GELDİN ! </h1> <h1 class="adi">MEHMET FURKAN		</h1></div>
+		<hr>
+		<div class="contentBaslik">
+			<div class="contentBaslikSol"><h2> </h2> </div>
+			<div class="contentBaslikSag"><h2> Toplam <span>30</span> Check-in</h2> </div>
+		</div>
+		<!-- <div class="contentMekandakiKisiler"> 
+			<ul>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+				<li><img src="img/mekandakiKisiler.png" ></li>
+			</ul>
+		</div>-->
+		<div class="contentIstatistik">
+			<div class="bosluk"></div>
+			<hr>
+			<div class="istatstikToplamCheckin">Toplam Check-in : 58212</div>
+			<div class="istatstikToplamMayor">Mayor : <span>505454</span></div>
+			<div class="bosluk"></div>
+			<hr>
+		</div>
+	</div>
+
+	<!--<div id="footer"></div>-->
+	
+	<script>
+		var dataSvg = document.getElementsByClassName("dataSvg")[0].style.display="none";
+		console.log(dataSvg)
+
+		var socket = io();
+
+		
+
+		  socket.on("checkin",function(data){
+			document.getElementsByClassName("dataSvg")[0].style.display="block";
+				var json = JSON.parse(data);
+				var cekIsism = document.querySelector(".adi").innerHTML = json.user.firstName + " "+ json.user.lastName ;
+				var userFoto = document.querySelector(".userFoto").src =json.user.photo.prefix + json.user.id + json.user.photo.suffix  ;
+					//json.user.photo.prefix + json.user.id + json.user.photo.suffix 
+				//console.dir(json)
+				//console.dir(userFoto)
+				
+			
+
+			var morphing = anime({
+			targets: '.animeSheet',
+			points: [
+				{ value: '196,100 0,100 0,0 33.3,0 60.3,67.2' },
+				{ value: '196,100 0,100 0,0 70.3,68' },
+				{ value: '196,100 0,100 0,0 0,100' },
+				
+			],
+			easing: 'easeOutQuad',
+			duration: 2000,
+			loop: false
+			});
+			
+			
+			var swarm = document.getElementById("swarm").style.display = "block";
+
+			setTimeout(function(){
+					alert("KAPAT CHECKINI")
+			},10000)
+
+		  })
+	  </script>
+
+<script>
+	
+		var video = document.getElementById("myVideo");
+
+		
+		var btn = document.getElementById("myBtn");
+		video.volume = 0.9;
+		//video.autoplay = true;
+		//video.load();
+
+
+		function myFunction() {
+		  if (video.paused) {
+			video.play();
+			btn.innerHTML = "DURDUR";
+		  } else {
+			video.pause();
+			btn.innerHTML = "BAŞLAT";
+		  }
+		}
+		
+		
+
+		setInterval(function(){
+			var videUzunluk = Math.ceil(video.duration)-2
+			var videoCurrent = Math.ceil(video.currentTime,)
+
+			console.log(videoCurrent)
+			
+			console.log(videUzunluk)
+			if(videoCurrent == videUzunluk){
+				alert("VİDEO BİTTİ ")
+			}
+
+		},1000)
+
+		
+
+
+		
+		</script>
+</div>
+</body>
+</html>
