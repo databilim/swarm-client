@@ -38,7 +38,60 @@ io.on('connection', socket => {
 
   })
 
+
+
+  const VideoCount = require("./model/VideoCount")
+  const Video = require("./model/Video")
+  var videoCek = Video.find()
+  var countVideo = VideoCount.findOne({}); 
+
+  socket.on("video start",(data)=>{
+      videoCek.then((videoData)=>{
+        var videoToplam = videoData.length;
+
+        
+        videoData.videoToplam = videoToplam -1; 
+        return videoData
+        
+      }).then((data)=>{
+            
+            countVideo.then((sayx)=>{
+              data.say = sayx.say
+              
+
+              return data
+            }).then((data)=>{
+
+               if(data.videoToplam == data.say || data.videoToplam < data.say){
+                  VideoCount.update({},{$set:{say: 0 }},{ multi: true },(s,d)=>{
+                    console.log("Video Değeri Sıfırlandı")
+                  })
+                  io.emit("video onay",data[data.say])   
+               }else{
+                VideoCount.update({},{$set:{say: data.say +1 }},{ multi: true },(s,d)=>{
+                  console.log("+1 Eklendi")
+                }) 
+                io.emit("video onay",data[data.say]) 
+                console.log(data)
+               }
+
+            })
+       
+
+      })
+
+
 })
+
+
+
+
+
+})
+
+
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

@@ -10,16 +10,16 @@ router.get('/', function(req, res, next) {
   
 });
 
-router.post('/video',(req,res,next)=>{
+router.get('/api/video',(req,res,next)=>{
 
   
   //res.send(req.body)
-  const video = new Video(req.body);
-  const promise = video.save()
+  
+  const promise = Video.find()
    //req.io.emit("checkin",req.body.checkin)
    promise.then((video)=>{
 
-    res.json({status:1})
+    res.json(video)
       }).catch((err)=>{
 
           res.json({error:err, code:5})
