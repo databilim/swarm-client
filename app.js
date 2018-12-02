@@ -66,12 +66,12 @@ io.on('connection', socket => {
                   VideoCount.update({},{$set:{say: 0 }},{ multi: true },(s,d)=>{
                     console.log("Video Değeri Sıfırlandı")
                   })
-                  io.emit("video onay",data[data.say])   
+                  socket.emit("video onay",data[data.say])   
                }else{
                 VideoCount.update({},{$set:{say: data.say +1 }},{ multi: true },(s,d)=>{
                   console.log("+1 Eklendi")
                 }) 
-                io.emit("video onay",data[data.say]) 
+                socket.emit("video onay",data[data.say]) 
                 console.log(data)
                }
 
