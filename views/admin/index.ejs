@@ -1,0 +1,47 @@
+<% include head %>
+<% include navbar %>
+
+
+
+
+
+
+
+<% include left %>
+<div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+                
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                                    <li class="breadcrumb-item active">Starter</li>
+                                </ol>
+                            </div>
+                            
+
+
+                            <%if(path==="/"){%>
+                                    <h1>Anasayfa</h1>
+                            <%}%>
+                            <%if(path==="/videoekle"){%>
+                                <% include videoekle%>
+                             <%}%>
+
+
+                        </div>
+                    </div>
+                </div>     
+                <!-- end page title --> 
+                
+            </div> <!-- container -->
+
+        </div> <!-- content -->
+<% include footer %>

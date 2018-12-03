@@ -4,7 +4,7 @@ const fs = require('fs');
 const Video = require("../model/Video")
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { video: req.video });
+  res.render('index', { video: req.video , swarm:req.checkin});
 
   
   

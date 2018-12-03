@@ -12,11 +12,11 @@ const db = require('./helper/db.js')();
 // ROUTERS
 var swarms = require('./routes/swarm');
 var index = require('./routes/index');
-
+var admin = require('./routes/admin');
 
 //MİDDLEWARE 
 const  video = require("./middleware/video");
-
+const  swarm = require("./middleware/checkin");
 var app = express();
 
 
@@ -121,13 +121,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use(video); 
+app.use(swarm); 
+app.use("/",video); 
 app.use('/', index);
 
 app.use("/social",swarms);
 
 
-
+app.use("/admin",admin);
 
 
 // catch 404 and forward to error handler
