@@ -122,9 +122,9 @@ app.use(fileUpload());
 
 
 app.use(swarm); 
-app.use("/",video); 
-app.use('/', index);
 
+app.use('/', index);
+app.use("/",video); 
 app.use("/social",swarms);
 
 
