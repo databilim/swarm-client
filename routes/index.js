@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const fs = require('fs');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 const Video = require("../model/Video")
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -9,6 +11,25 @@ router.get('/', function(req, res, next) {
   
   
 });
+
+router.post('/video',(req,res,next)=>{
+
+  
+  //res.send(req.body)
+  const video = new Video(req.body);
+  const promise = video.save()
+   //req.io.emit("checkin",req.body.checkin)
+   promise.then((video)=>{
+
+    res.json({status:1})
+      }).catch((err)=>{
+
+          res.json({error:err, code:5})
+      })
+})
+
+
+
 
 router.get('/api/video',(req,res,next)=>{
 

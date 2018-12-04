@@ -1,6 +1,6 @@
 var express = require('express');
 
-
+const fileUpload = require('express-fileupload');
 var https = require('https');
 //var http = require('http');
 const fs = require('fs');
@@ -116,7 +116,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(fileUpload());
  
 
 
